@@ -149,3 +149,7 @@ if __name__ == "__main__":
         level_order(root)
     else:
         print("Opção inválida!")
+        
+    node_to_delete = int(input("\nInforme o nó que você deseja remover: \n"))
+    delete(root, node_to_delete)
+    print_tree(root)
