@@ -116,25 +116,36 @@ def print_tree(node, level=0):
         print_tree(node.left, level + 1)  
                 
 if __name__ == "__main__":
-    root = None 
-    root_size = int(input("Quantos nós você quer na sua árvore? \n"))
-    
-    
-    print("Digite os valores dos nós:")
-    for _ in range(root_size):
-        value = int(input(f"Nó {_ + 1}: "))
+    root = None
+    values = [50, 30, 70, 20, 40, 60, 80]
+    for value in values:
         root = insert(root, value)
     
-
-    print("-------- Sua árvore: ---------")
     print_tree(root)
     
-    print("Número total de nós na árvore:", count_nodes(root))
+    print("\nNúmero total de nós na árvore:", count_nodes(root))
     print("Número total de folhas na árvore:", count_leaves(root))
     
-    search_key = int(input("Qual valor você deseja buscar? \n"))
-    found_node = search(root, search_key)
-    if found_node:
-        print(f"\nNó {search_key} encontrado!")
+    print("\nEscolha o tipo de percurso:")
+    print("1 - Pré-ordem (preorder)")
+    print("2 - Simétrica (inorder)")
+    print("3 - Pós-ordem (postorder)")
+    print("4 - Em nível (level order)")
+    
+    option = int(input("Digite o número correspondente ao tipo de percurso: "))
+    
+    print("\nValores do percurso:")
+    if option == 1:
+        print("Pré-ordem:")
+        preorder(root)
+    elif option == 2:
+        print("Simétrica:")
+        inorder(root)
+    elif option == 3:
+        print("Pós-ordem:")
+        postorder(root)
+    elif option == 4:
+        print("Em nível:")
+        level_order(root)
     else:
-        print(f"\nNó {search_key} não encontrado.")
+        print("Opção inválida!")
