@@ -45,33 +45,33 @@ def find_min(node):
         current = current.left
     return current
 
-def delete(node, key):
-    if node is None:
-        return node
+def delete(current_node, node_to_delete):
+    if current_node is None:
+        return current_node
 
     # Localizar nó a ser removido
-    if key < node.value:
-        node.left = delete(node.left, key)
-    elif key > node.value:
-        node.right = delete(node.right, key)
+    if node_to_delete < current_node.value:
+        current_node.left = delete(current_node.left, node_to_delete)
+    elif node_to_delete > current_node.value:
+        current_node.right = delete(current_node.right, node_to_delete)
     else:
         # Caso 1: Nó sem filhos
-        if node.left is None and node.right is None:
+        if current_node.left is None and current_node.right is None:
             return None
         
         # Caso 2: Nó com um filho
-        elif node.left is None:
-            return node.right
-        elif node.right is None:
-            return node.left
+        elif current_node.left is None:
+            return current_node.right
+        elif current_node.right is None:
+            return current_node.left
         
         # Caso 3: Nó com dois filhos
         else:
-            min_node = find_min(node.right)  # Encontrar sucessor 
-            node.value = min_node.value  # Substituir valor pelo sucessor
-            node.right = delete(node.right, min_node.value)  # Remover sucessor 
+            min_node = find_min(current_node.right)  # Encontrar sucessor 
+            current_node.value = min_node.value  # Substituir valor pelo sucessor
+            current_node.right = delete(current_node.right, min_node.value)  # Remover sucessor 
 
-    return node
+    return current_node
 
 def preorder(node):
     if node:
@@ -117,7 +117,7 @@ def print_tree(node, level=0):
                 
 if __name__ == "__main__":
     root = None
-    values = [50, 30, 70, 20, 40, 60, 80]
+    values = [50, 30, 70, 20, 40, 60, 80, 90, 22,79, 78]
     for value in values:
         root = insert(root, value)
     
