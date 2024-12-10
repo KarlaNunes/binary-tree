@@ -36,6 +36,40 @@ def count_leaves(node):
     if node.left is None and node.right is None:  # Nó sem filhos
         return 1
     return count_leaves(node.left) + count_leaves(node.right)
+
+def find_min(node):
+    current = node
+    while current.left is not None:
+        current = current.left
+    return current
+
+def delete(node, key):
+    if node is None:
+        return node
+
+    # Localizar nó a ser removido
+    if key < node.value:
+        node.left = delete(node.left, key)
+    elif key > node.value:
+        node.right = delete(node.right, key)
+    else:
+        # Caso 1: Nó sem filhos
+        if node.left is None and node.right is None:
+            return None
+        
+        # Caso 2: Nó com um filho
+        elif node.left is None:
+            return node.right
+        elif node.right is None:
+            return node.left
+        
+        # Caso 3: Nó com dois filhos
+        else:
+            min_node = find_min(node.right)  # Encontrar sucessor 
+            node.value = min_node.value  # Substituir valor pelo sucessor
+            node.right = delete(node.right, min_node.value)  # Remover sucessor 
+
+    return node
     
 
 def print_tree(node, level=0):
