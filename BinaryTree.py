@@ -1,3 +1,5 @@
+from collections import deque
+
 class Node: 
     def __init__(self, value):
         self.value = value
@@ -70,6 +72,41 @@ def delete(node, key):
             node.right = delete(node.right, min_node.value)  # Remover sucessor 
 
     return node
+
+def preorder(node):
+    if node:
+        print(node.value, end=" ")  
+        preorder(node.left)
+        preorder(node.right)
+        
+def inorder(node):
+    if node:
+        inorder(node.left) 
+        print(node.value, end=" ")  
+        inorder(node.right)
+        
+def postorder(node):
+    if node:
+        postorder(node.left)  
+        postorder(node.right) 
+        print(node.value, end=" ")
+
+def level_order(root):
+    if root is None:
+        return 
+    
+    queue = deque()
+    queue.append(root)
+    
+    while queue:  
+        current_node = queue.popleft()
+        print(current_node.value, end=" ") 
+        
+        # Enfileirar os filhos 
+        if current_node.left:
+            queue.append(current_node.left)
+        if current_node.right:
+            queue.append(current_node.right)
     
 
 def print_tree(node, level=0):
